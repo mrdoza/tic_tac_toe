@@ -9,30 +9,30 @@
   <body>
     <h1>Tic-Tac-Toe</h1>
     <div class="game">
-      <button id="00" class="cell"></button>
-      <button id="01" class="cell"></button>
-      <button id="02" class="cell"></button>
-      <button id="10" class="cell"></button>
-      <button id="11" class="cell"></button>
-      <button id="11" class="cell"></button>
-      <button id="21" class="cell"></button>
-      <button id="21" class="cell"></button>
-      <button id="21" class="cell"></button>
+      <button id="0-0" class="cell"></button>
+      <button id="0-1" class="cell"></button>
+      <button id="0-2" class="cell"></button>
+      <button id="1-0" class="cell"></button>
+      <button id="1-1" class="cell"></button>
+      <button id="1-2" class="cell"></button>
+      <button id="2-0" class="cell"></button>
+      <button id="2-1" class="cell"></button>
+      <button id="2-2" class="cell"></button>
     </div>
-    <div class="winner">Player 2 is the winner</div>
+    <div id="winner" class="winner">Player 2 is the winner</div>
     <div class="players">
       <div class="leftPlayer">
-        <input type="input" class="player1" placeholder="Enter your name" />
-        <div class="player1">Player1</div>
+        <input type="text" id="player1" placeholder="Enter your name" />
+        <button id="submit1">Accept</button>
       </div>
       <div class="rightPlayer">
-        <input type="input" class="player2" placeholder="Enter your name" />
-        <div class="player2">Player2</div>
+        <input type="text" id="player2" placeholder="Enter your name" />
+        <button id="submit2">Accept</button>
       </div>
     </div>
     <div class="bottom">
-        <div class="turn">Player1's Turn</div>
-        <input type="button" value="Restart" class="restart" />
+      <div id="turn" class="turn">Player1's Turn</div>
+      <input type="button" value="Restart" class="restart" />
     </div>
 
     <script src="script.js" defer></script>
