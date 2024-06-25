@@ -9,17 +9,17 @@
   <body>
     <h1>Tic-Tac-Toe</h1>
     <div class="game">
-      <button id="0-0" class="cell"></button>
-      <button id="0-1" class="cell"></button>
-      <button id="0-2" class="cell"></button>
-      <button id="1-0" class="cell"></button>
-      <button id="1-1" class="cell"></button>
-      <button id="1-2" class="cell"></button>
-      <button id="2-0" class="cell"></button>
-      <button id="2-1" class="cell"></button>
-      <button id="2-2" class="cell"></button>
+      <button id="00" class="cell"></button>
+      <button id="01" class="cell"></button>
+      <button id="02" class="cell"></button>
+      <button id="10" class="cell"></button>
+      <button id="11" class="cell"></button>
+      <button id="12" class="cell"></button>
+      <button id="20" class="cell"></button>
+      <button id="21" class="cell"></button>
+      <button id="22" class="cell"></button>
     </div>
-    <div id="winner" class="winner">Player 2 is the winner</div>
+    <div id="gameWinner" class="winner"></div>
     <div class="players">
       <div class="leftPlayer">
         <input type="text" id="player1" placeholder="Enter your name" />
@@ -32,7 +32,7 @@
     </div>
     <div class="bottom">
       <div id="turn" class="turn">Player1's Turn</div>
-      <input type="button" value="Restart" class="restart" />
+      <input type="button" value="Start/Restart" class="restart" id="restart" />
     </div>
 
     <script src="script.js" defer></script>

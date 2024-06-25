@@ -1,18 +1,3 @@
-const board = [];
-
-function createBoard() {
-  let rows = 3;
-  let columns = 3;
-  for (let i = 0; i < rows; i++) {
-    board[i] = [];
-    for (let j = 0; j < columns; j++) {
-      board[i][j] = `${i} ${j}`;
-    }
-  }
-}
-createBoard();
-console.log(board);
-
 const players = [];
 
 document.getElementById("submit1").addEventListener("click", function () {
@@ -41,75 +26,64 @@ document.getElementById("submit2").addEventListener("click", function () {
   }
 });
 
-function checkWinner() {
-  let winner = null;
-  let rows = 3;
-  let columns = 3;
-
-  for (let i = 0; i < rows; i++) {
-    if (board[i][0] === board[i][1] && board[i][1] === board[i][2]) {
-      winner = board[i][0];
-    }
-  }
-
-  for (let i = 0; i < columns; i++) {
-    if (board[0][i] === board[1][i] && board[1][i] === board[2][i]) {
-      winner = board[0][i];
-    }
-  }
-
-  if (board[0][0] === board[1][1] && board[1][1] === board[2][2]) {
-    winner = board[0][0];
-  }
-
-  if (board[0][2] === board[1][1] && board[1][1] === board[2][0]) {
-    winner = board[0][2];
-  }
-
-  return winner;
-}
-
-function play(player, row, column) {
-  if (board[row][column] === `${row} ${column}`) {
-    board[row][column] = player.symbol;
-  } else {
-    console.log("Invalid move");
-  }
-}
+document.getElementById("restart").addEventListener("click", function () {
+  const cells = document.querySelectorAll(".cell");
+  cells.forEach((cell) => {
+    cell.innerHTML = "";
+  });
+  turnDiv.innerHTML = `${players[0].name}'s turn!`;
+  winnerDiv.innerHTML = "";
+});
 
 const turnDiv = document.getElementById("turn");
-const winnerDiv = document.getElementById("winner");
+const winnerDiv = document.getElementById("gameWinner");
 
-function handleCellClick(event) {
-  const [row, column] = event.target.id.split("-").map(Number);
-  let currentPlayer = players[0];
+let currentPlayerIndex = 0;
 
-  if (board[row][column] !== "X" && board[row][column] !== "O") {
-    play(currentPlayer, row, column);
-    console.log(board);
-    const winner = checkWinner();
-    if (winner) {
-      winnerDiv.innerHTML = `${winner} wins!`;
-    } else {
-      currentPlayer = currentPlayer === players[0] ? players[1] : players[0];
-      turnDiv.innerHTML = `${currentPlayer.name} plays`;
-    }
-  } else {
-    alert("Invalid move");
-  }
-}
+document.addEventListener("DOMContentLoaded", () => {
+  const cells = document.querySelectorAll(".cell");
+  cells.forEach((cell) => {
+    cell.addEventListener("click", function () {
+      if (this.innerHTML === "") {
+        this.innerHTML = players[currentPlayerIndex].symbol;
 
-document.addEventListener('DOMContentLoaded', () => {
-  let currentPlayer = players[0];
-  const cells = document.querySelectorAll('.cell');
-  cells.forEach(cell => {
-    cell.addEventListener('click', function() {
-
-      if (this.innerHTML === '') {
-        this.innerHTML = currentPlayer.symbol; 
-        currentPlayer = currentPlayer === players[0] ? players[1] : players[0];
-        turnDiv.innerHTML = `${currentPlayer}'s turn!`
+        checkWinner();
+        currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+        turnDiv.innerHTML = `${players[currentPlayerIndex].name}'s turn!`;
       }
     });
   });
 });
+
+function checkWinner() {
+  const cells = document.querySelectorAll(".cell");
+
+  const board = Array.from(cells, (cell) => cell.textContent);
+
+  const winningCombinations = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+
+  for (let combination of winningCombinations) {
+    const [a, b, c] = combination;
+    if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+      winnerDiv.innerHTML = `${players[currentPlayerIndex].name} wins!`;
+      return board[a];
+    }
+  }
+
+  const isTie = board.every((cell) => cell !== "");
+  if (isTie) {
+    winnerDiv.innerHTML = "It's a tie!";
+    return "Tie";
+  }
+
+  return null;
+}
